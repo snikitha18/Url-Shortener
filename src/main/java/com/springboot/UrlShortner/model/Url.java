@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,6 +12,12 @@ import jakarta.persistence.Table;
 @Scope("Prototype")
 @Table(name="url_db")
 public class Url {
+	@Id
+	@Column(nullable = false, unique = true)
+	private String modifiedUrl;
+
+	@Column(nullable = false)
+	private String ogUrl;
 	public Url(  String ogUrl,String modifiedUrl, LocalDateTime createdOn) {
 		super();	
 		this.modifiedUrl = modifiedUrl;
@@ -38,12 +45,10 @@ public class Url {
 	public void setCreatedOn(LocalDateTime createdOn) {
 		this.createdOn = createdOn;
 	}
-	@Id
-	private String modifiedUrl;
+
 	public Url() {
 	
 	}
-	private String ogUrl;
 	private LocalDateTime createdOn ;
 
 }
