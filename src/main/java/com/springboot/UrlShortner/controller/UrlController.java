@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.UrlShortner.model.UrlRequestDto;
+import com.springboot.UrlShortner.service.UrlConstants;
 import com.springboot.UrlShortner.service.UrlService;
 
 @RestController
@@ -22,7 +23,7 @@ public class UrlController {
 		String shortUrl = service.shortenUrl(ogUrl.getOgUrl());
 		return ResponseEntity.ok(shortUrl);	
 	}
-	@GetMapping("/{shortUrl}")
+	@GetMapping("/"+UrlConstants.BASE_URL+"/{shortUrl}")
 	public String getOgUrl(@PathVariable String shortUrl) {
 		return service.getOgUrl(shortUrl);
 				
