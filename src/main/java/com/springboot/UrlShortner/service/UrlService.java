@@ -26,7 +26,8 @@ public class UrlService {
 	}
 	@Cacheable(value="link",key="#url", unless = "#result==null")
 	public String getOgUrl(String url) {		
-			return repo.findByModifiedUrl(url).getOgUrl();
-				
+		return repo.findByModifiedUrl(url).getOgUrl();
+	   
+
 	}
 }

@@ -6,13 +6,28 @@ import org.springframework.context.annotation.Scope;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 @Entity
 @Scope("Prototype")
-@Table(name="url_db")
+@Table(name="url_db", indexes = @Index(name = "idx_modified_url", columnList = "modifiedUrl"))
 public class Url {
-	@Id
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@Column(nullable = false, unique = true)
 	private String modifiedUrl;
 
