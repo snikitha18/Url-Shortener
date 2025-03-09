@@ -30,7 +30,8 @@ Example:
 	### Prerequisites
 	- Java 17+
 	- Maven
-	- Docker (for MySQL and Redis setup)
+ 	- MySQL Workbench
+	- Docker (for Redis setup)
 
 ### Steps to Run the Project
 
@@ -55,22 +56,28 @@ Example:
 
 	5. **Access Swagger API Documentation:**
  		```
-  		http://localhost:8080/swagger-ui.html
+  		http://localhost:8080/swagger-ui/index.html
     	```
 
 ## API Endpoints
 
 	### 1. Shorten a URL
-	- **Endpoint:** `POST /UrlShortner/short`
+	- **Endpoint:** `POST /UrlShortner`
+ 	- **Headers:**
+  		```
+   		Content-Type: application/json
+    		```
 	- **Request Body:**  
-		json:    { "ogUrl": "https://example.com" }
+		```json:    
+ 		{ "ogUrl": "https://example.com" }
+  		```
 	- **Response:**  
-		text:	 "http://UrlShortner/shrt.ly/abcd1234" 
+		"http://shrt.ly/abcd1234" 
 
 	### 2. Retrieve Original URL
 	- **Endpoint:** `GET /{shortUrl}`
 	- **Response:**  
-    	HTML Page:	Redirects to original link
+    		HTML Page:	Redirects to original link
 
 ## Technologies Used
 	- Java (Spring Boot)
