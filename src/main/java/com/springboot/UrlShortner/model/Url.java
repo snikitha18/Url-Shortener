@@ -1,19 +1,17 @@
 package com.springboot.UrlShortner.model;
 
 import java.time.LocalDateTime;
-
-import org.springframework.context.annotation.Scope;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.*;
 @Entity
-@Scope("Prototype")
-@Table(name="url_db", indexes = @Index(name = "idx_modified_url", columnList = "modifiedUrl"))
+@Table(name="url_db", indexes = @Index(name = "idx_modified_url", columnList = "modifiedUrl"),uniqueConstraints = @UniqueConstraint(columnNames = {"modifiedUrl","ogUrl"}))
 public class Url {
 	
     @Id
@@ -23,25 +21,19 @@ public class Url {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String modifiedUrl;
 
 	@Column(nullable = false)
 	private String ogUrl;
-	public Url(  String ogUrl,String modifiedUrl, LocalDateTime createdOn) {
-		super();	
+	public Url(  String ogUrl,String modifiedUrl, LocalDateTime createdOn) {	
 		this.modifiedUrl = modifiedUrl;
 		this.ogUrl = ogUrl;
 		this.createdOn = createdOn;
-	}
-
-	
-	
+	}	
 	public String getModifiedUrl() {
 		return modifiedUrl;
 	}
@@ -64,6 +56,11 @@ public class Url {
 	public Url() {
 	
 	}
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdOn ;
+	@PrePersist
+    protected void onCreate() {
+        this.createdOn = LocalDateTime.now();
+    }
 
 }
